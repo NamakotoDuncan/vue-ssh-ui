@@ -3,7 +3,21 @@
     <router-view/>
   </div>
 </template>
+<script>
 
+import SocketioService from './socketio.service.js';
+
+export default {
+  name: 'App',
+  components: {},
+  created() {
+    SocketioService.setupSocketConnection();
+  },
+  beforeUnmount() {
+    SocketioService.disconnect();
+  }
+}
+</script>
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

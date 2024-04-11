@@ -4,7 +4,7 @@ import Router from 'vue-router'
 // import CustomerDetails from './views/CustomerDetails.vue'
 import Home from './views/Home.vue'
 import ClusterDetails from './views/ClusterDetails.vue'
-
+import DbStats from './views/DbStats.vue';
 
 Vue.use(Router)
 
@@ -23,6 +23,13 @@ const router =  new Router({
       path: '/cluster-details/:clusterId',
       name: 'ClusterDetails',
       component: ClusterDetails,
+      props: true
+
+    },
+    {
+      path: '/cluster-details/:clusterId/:dbId',
+      name: 'DbStats',
+      component: DbStats,
       props: true
 
     }

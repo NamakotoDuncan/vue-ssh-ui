@@ -27,16 +27,17 @@
             </div>
 
         </b-row>
+        <!-- :tbody-transition-props="transProps" -->
         <b-row>
             <b-table striped bordered foot-clone small hover head-variant="dark" responsive caption-top
-                :tbody-transition-props="transProps" :items="clusterNodes" :fields="nodeFields"
+                 :items="clusterNodes" :fields="nodeFields"
                 @row-clicked="onClusterRowClicked">
                 <template #table-caption>Nodes in cluster count {{ clusterNodes.length }}.</template>
 
                 <template #cell(actions)="row">
                     <!-- <b-btn size="sm" variant="outline-dark">View</b-btn> -->
                     <b-dropdown  variant="outline-dark" text="Node Actions">
-                        <b-dropdown-item>Statts</b-dropdown-item>
+                        <b-dropdown-item @click="viewNodeDetails(row.item)">Stats</b-dropdown-item>
                         <b-dropdown-item>Remove from cluster</b-dropdown-item>
                     </b-dropdown>
 
@@ -101,6 +102,11 @@ export default {
         this.fetchClusterDetails();
     },
     methods: {
+        viewNodeDetails(item) {
+            this.$root.$router.push({
+                path: `/cluster-details/${this.clusterId}/${item.id}`
+            });
+        },
         getNodes() {
             this.clusterNodes = [];
             instance.get(`/get-cluster-nodes/${this.clusterId}`)
